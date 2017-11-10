@@ -1,7 +1,7 @@
 
 'use strict'
 function isAuthorization(req,res,next){
-    console.log(req.headers.codeauthorization)
+   // console.log(req.headers.codeauthorization)
       if(!req.headers.codeauthorization){
          return res.status(403).send({code:1,message:'Sin Autorización Al Sistema'})
     }
