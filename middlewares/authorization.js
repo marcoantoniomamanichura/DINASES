@@ -3,7 +3,7 @@
 function isAuthorization(req,res,next){
    // console.log(req.headers.codeauthorization)
       if(!req.headers.codeauthorization){
-         return res.status(403).send({code:1,message:'Sin Autorización Al Sistema'})
+         return res.status(200).send({code:1,message:'Sin Autorización Al Sistema'})
     }
     
     const token =req.headers.codeauthorization
@@ -11,7 +11,7 @@ function isAuthorization(req,res,next){
 
     next()
    }else {
-    return res.status(403).send({code:1,message:'Sin Autorización Al Sistema'})
+    return res.status(200).send({code:1,message:'Sin Autorización Al Sistema'})
    }
 
 }

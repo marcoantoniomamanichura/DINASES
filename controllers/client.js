@@ -18,11 +18,7 @@ function getClients(req, res){
 }
 
 function postClient(req, res){
-    //console.log(JSON.stringify(req.body))
-
-    //console.log(JSON.stringify(req.body.mail))
-
-//req.assert('full_name','{"Code":"0","message":"Por favor inserte Un nombre valido"}').noempty();
+      //console.log(JSON.stringify(req.body.mail))
 req.check('full_name', '{"Code":"8","message":"El nombre no puede ser vacío. Por favor inserte un nombre valido"}').notEmpty();
 req.check('password_cli', '{"Code":"7","message":"La contraseña no puede ser vacio. Por favor inserte una valida"}').notEmpty();
 req.check('phone', '{"Code":"9","message":"El telefono no puede ser vacio. Por favor inserte una valida"}').notEmpty();
@@ -40,23 +36,17 @@ if(erros){
     for (var i = 0; i < erros.length; i++) {
       
         result=result+erros[i].msg+","
-        //res.status(401).send(JSON.parse(erros[i].msg));
-      //  return
+       result= "["+result.substring(0, result.length - 1)+"]"; 
+        res.status(200).send(JSON.parse(result));
+        return
     }; 
-    result= "["+result.substring(0, result.length - 1)+"]"; 
-    res.status(401).send(JSON.parse(result));
-     return
+  //  result= "["+result.substring(0, result.length - 1)+"]"; 
+   // res.status(200).send(JSON.parse(result));
+    // return
 
 }
 
-  /*  if(isValidEmail(req.body.mail)==false ){
-        res.status(401).send({code:5,message:'La Dirección De Correo Es Invalido. Inserte Un Correo Valido'})
-        return
-    }
-    if(!req.body.password_cli){
-       res.status(401).send({code:7,message:'Contraseña Invalida. Por Favor Inserte Una Valida'})
-      return
-    }*/
+
     let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 1}, /*1 Opción de registro de cliente*/
                  {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor": 0},
                  {"nombre":"full_name", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.full_name},
@@ -85,8 +75,7 @@ function deleteClient(req, res){
 }
 
 function putRecoverPassword(req, res){
-   // console.log('PUT /api/recover-password')
-    console.log(req.body.mail)
+   // console.log(req.body.mail)
     if(isValidEmail(req.body.mail)==false){
         res.status(200).send({code:5,message:'La dirección de correo es invalido. inserte un correo valido'})
         return
@@ -107,11 +96,11 @@ function postClientAuth(req, res) {
    // let user = my_basic_auth(req);  
    
     if ( !req.body.mail || !req.body.password_cli) {
-           res.status(401).send({code:4,message:'Datos invalidos. Por favor inserte un correo y una contraseña válida'})
+           res.status(200).send({code:4,message:'Datos invalidos. Por favor inserte un correo y una contraseña válida'})
         return
     }
     if(isValidEmail(req.body.mail)==false ){
-        res.status(401).send({code:5,message:'La dirección de correo es invalido. inserte un correo valido'})
+        res.status(200).send({code:5,message:'La dirección de correo es invalido. inserte un correo valido'})
 		return
     }
       res.set('WWW-Authenticate', 'Basic realm=Authorization No Required')
