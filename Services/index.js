@@ -6,7 +6,7 @@ function createToken(userId){
     const payload={
         sub:userId,
         iat:moment().unix(),
-        exp: moment().add(1,'year').unix(),
+        exp: moment().add(2,'year').unix(),
     }
    return  jwt.encode(payload,config.SECRET_TOKEN)
 }
@@ -16,14 +16,14 @@ function decodeToken(token){
         try{
   const payload=jwt.decode(token,config.SECRET_TOKEN)
   if(payload.exp <=moment().unix()){
-    reject({status:401,message:'El Token Ha Expirado'})
+    reject({code:200,message:'El Token Ha Expirado'})
 
 }
 resolve(payload.sub)
 
 
         }catch(err){
-            reject({status:500,mesagge:'invalid Token'})
+            reject({code:200,mesagge:'invalid Token'})
         }
     })
     return decoded

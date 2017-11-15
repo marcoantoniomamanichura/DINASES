@@ -19,16 +19,16 @@ function getClients(req, res){
 
 function postClient(req, res){
       //console.log(JSON.stringify(req.body.mail))
-req.check('full_name', '{"Code":"8","message":"El nombre no puede ser vacío. Por favor inserte un nombre valido"}').notEmpty();
-req.check('password_cli', '{"Code":"7","message":"La contraseña no puede ser vacio. Por favor inserte una valida"}').notEmpty();
-req.check('phone', '{"Code":"9","message":"El telefono no puede ser vacio. Por favor inserte una valida"}').notEmpty();
-req.check('address', '{"Code":"10","message":"La dirección no puede ser vacío. Por favor coloque su dirección actual"}').notEmpty();
-req.check('location_lat', '{"Code":"11","message":"Los datos de la ubicación es invalida por favor seleccione una correcta"}').notEmpty();
-req.check('location_log', '{"Code":"11","message":"Los datos de la ubicación es invalida por favor seleccione una correcta"}').notEmpty();
+req.check('full_name', '{"code":"8","message":"El nombre no puede ser vacío. Por favor inserte un nombre valido"}').notEmpty();
+req.check('password_cli', '{"code":"7","message":"La contraseña no puede ser vacio. Por favor inserte una valida"}').notEmpty();
+req.check('phone', '{"code":"9","message":"El telefono no puede ser vacio. Por favor inserte una valida"}').notEmpty();
+req.check('address', '{"code":"10","message":"La dirección no puede ser vacío. Por favor coloque su dirección actual"}').notEmpty();
+req.check('location_lat', '{"code":"11","message":"Los datos de la ubicación es invalida por favor seleccione una correcta"}').notEmpty();
+req.check('location_log', '{"code":"11","message":"Los datos de la ubicación es invalida por favor seleccione una correcta"}').notEmpty();
 
-req.check('location_lat', '{"Code":"12","message":"El tipo de dato de la ubicación es invalido"}').isDecimal();
-req.check('location_log', '{"Code":"12","message":"El tipo de dato de la ubicación es invalido"}').isDecimal();
-req.check('mail', '{"Code":"5","message":"La Dirección De Correo Es Invalido. Inserte Un Correo Valido"}').isEmail();
+req.check('location_lat', '{"code":"12","message":"El tipo de dato de la ubicación es invalido"}').isDecimal();
+req.check('location_log', '{"code":"12","message":"El tipo de dato de la ubicación es invalido"}').isDecimal();
+req.check('mail', '{"code":"5","message":"La Dirección De Correo Es Invalido. Inserte Un Correo Valido"}').isEmail();
 var erros = req.validationErrors();
 var result=""
 if(erros){
@@ -36,7 +36,7 @@ if(erros){
     for (var i = 0; i < erros.length; i++) {
       
         result=result+erros[i].msg+","
-       result= "["+result.substring(0, result.length - 1)+"]"; 
+       result= result.substring(0, result.length - 1); 
         res.status(200).send(JSON.parse(result));
         return
     }; 

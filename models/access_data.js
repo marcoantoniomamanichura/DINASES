@@ -11,7 +11,7 @@ function VerificarCuenta(res,email,pass,array){
     }, this);
     request.execute('sp_go_TC004_appMovil', function(err, result){
         if (err) {
-            res.status(500).send({code:3,message:'La conexión ha sido interrumpida'})
+            res.status(200).send({code:3,message:'La conexión ha sido interrumpida'})
         } else {
             // console.log(result.recordsets[0].length) // count of rows contained in first recordset 
           // console.log(result.recordset[0]["code_id"]) // first recordset from result.recordsets 
@@ -68,7 +68,7 @@ function executeStoredProcedure(res, array, spName, resultName, numberRows,mail)
     request.execute(spName, function(err, result){
         if (err) {
             console.log(`Error mientras consultaba el SP de la base de datos : ${err}`)
-            res.status(500).send({code:3,message: 'La conexión ha sido interrumpida'})
+            res.status(200).send({code:3,message: 'La conexión ha sido interrumpida'})
         } else {
           // console.log(result.recordsets.length) // count of recordsets returned by the procedure 
             console.log(result.recordsets[0].length) // count of rows contained in first recordset 

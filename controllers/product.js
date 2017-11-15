@@ -17,7 +17,7 @@ function getCategorias(req, res){
 
 }
 function getProducts(req, res){
-    console.log(req.params)
+   // console.log(req.params)
     //console.log(req.body)
    
     let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 8},
