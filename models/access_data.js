@@ -26,6 +26,31 @@ function VerificarCuenta(res,email,pass,array){
         }
     }) 
 }
+
+
+
+function EjecutaProcedimiento(res,array,_codeExitoso,_codeError,_mensajeValida,_mesajeInvalido){
+    var request = new sqlapi.Request()
+      array.forEach(function(element) {
+          request.input(element.nombre, element.tipo, element.valor)    
+    }, this);
+    request.execute('sp_go_TC004_appMovil', function(err, result){
+        if (err) {
+            res.status(200).send({code:3,message:'La conexión ha sido interrumpida'})
+        } else {
+            // console.log(result.recordsets[0].length) // count of rows contained in first recordset 
+          // console.log(result.recordset[0]["code_id"]) // first recordset from result.recordsets 
+          if(result.recordsets[0].length==1){
+             
+            res.status(200).send({code:_codeExitoso,message:_mensajeValida})
+          }else{
+         
+           res.status(200).send({code:_codeError,message:_mesajeInvalido})
+         
+           }
+        }
+    }) 
+}
 function ExisteEMail(res,pass,email,array){
     let request = new sqlapi.Request()
     console.log(pass)
@@ -153,5 +178,6 @@ module.exports = {
     executeStoredProcedure,
     VerificarCuenta,
     ExisteEMail,
-    executeStoredProcedureProductos,executeStoredProcedurePedidosPost
+    executeStoredProcedureProductos,executeStoredProcedurePedidosPost,
+    EjecutaProcedimiento
 }
