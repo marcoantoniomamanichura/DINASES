@@ -17,6 +17,49 @@ function getClients(req, res){
 
 }
 
+function putClient(req, res){
+    const token =req.headers.tokenauthorization
+    const payload=jwt.decode(token,config.SECRET_TOKEN)
+    const cod_cliente=payload.sub
+req.check('full_name', '{"code":"8","message":"El nombre no puede ser vacío. Por favor inserte un nombre valido"}').notEmpty();
+req.check('phone', '{"code":"9","message":"El telefono no puede ser vacio. Por favor inserte una valida"}').notEmpty();
+req.check('address', '{"code":"10","message":"La dirección no puede ser vacío. Por favor coloque su dirección actual"}').notEmpty();
+req.check('location_lat', '{"code":"11","message":"Los datos de la ubicación es invalida por favor seleccione una correcta"}').notEmpty();
+req.check('location_log', '{"code":"11","message":"Los datos de la ubicación es invalida por favor seleccione una correcta"}').notEmpty();
+
+req.check('location_lat', '{"code":"12","message":"El tipo de dato de la ubicación es invalido"}').isDecimal();
+req.check('location_log', '{"code":"12","message":"El tipo de dato de la ubicación es invalido"}').isDecimal();
+var erros = req.validationErrors();
+var result=""
+if(erros){
+  for (var i = 0; i < erros.length; i++) {    
+      result=result+erros[i].msg+","
+     result= result.substring(0, result.length - 1); 
+      res.status(200).send(JSON.parse(result));
+      return
+  }; }
+
+
+  let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 1}, /*1 Opción de registro de cliente*/
+               {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor": cod_cliente},
+               {"nombre":"full_name", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.full_name},
+               {"nombre":"business_name", "tipo": accessDataModel.sqlapi.NVarChar(200), "valor": req.body.business_name},
+               {"nombre":"nit", "tipo": accessDataModel.sqlapi.NVarChar(20), "valor": req.body.nit},
+               {"nombre":"phone", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.phone},
+               {"nombre":"cell_phone", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.cell_phone},
+               {"nombre":"address", "tipo": accessDataModel.sqlapi.NVarChar(200), "valor": req.body.address},
+               {"nombre":"reference", "tipo": accessDataModel.sqlapi.NVarChar(200), "valor": req.body.reference},
+               {"nombre":"location_lat", "tipo": accessDataModel.sqlapi.Decimal(18,14), "valor": req.body.location_lat},
+               {"nombre":"location_log", "tipo": accessDataModel.sqlapi.Decimal(18,14), "valor": req.body.location_log}]
+                  
+ accessDataModel.EjecutaProcedimiento(res, array,0,14,"Los datos han sido modicado correctamente","Los datos no pudieron ser modificados")
+
+}
+
+
+
+
+
 function postClient(req, res){
       //console.log(JSON.stringify(req.body.mail))
 req.check('full_name', '{"code":"8","message":"El nombre no puede ser vacío. Por favor inserte un nombre valido"}').notEmpty();
@@ -66,8 +109,6 @@ if(erros){
 
 }
 
-function putClient(req, res){
-}
 
 function deleteClient(req, res){
     var query = 'DELETE FROM [user] WHERE Id=' + req.params.id
@@ -117,8 +158,8 @@ module.exports = {
     getClient,
     getClients,
     postClient,
-    putClient,
+  
     deleteClient,
     putRecoverPassword,
-    postClientAuth
+    postClientAuth,putClient
 }
