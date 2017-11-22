@@ -41,7 +41,7 @@ if(erros){
   }; }
 
 
-  let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 1}, /*1 Opción de registro de cliente*/
+  let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 13}, /*1 Opción de registro de cliente*/
                {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor": cod_cliente},
                {"nombre":"full_name", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.full_name},
                {"nombre":"business_name", "tipo": accessDataModel.sqlapi.NVarChar(200), "valor": req.body.business_name},
