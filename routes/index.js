@@ -7,16 +7,14 @@ const ordersCtrl =require('../controllers/orders')
 const api = express.Router()
 const auth=require('../middlewares/auth')
 const authorization=require('../middlewares/authorization')
-api.get('/client', clientCtrl.getClient)
+
 api.post('/clients',authorization, clientCtrl.postClient)
 api.put('/clients',auth,authorization, clientCtrl.putClient)
 api.delete('/delete-client/:code_id', clientCtrl.deleteClient)
 api.put('/clients/password',authorization, clientCtrl.putRecoverPassword)
 api.post("/clients/login",authorization, clientCtrl.postClientAuth)
+api.put('/password/clients',auth,authorization, clientCtrl.putPassword)
 
-api.get('/private',authorization,function(req,res){
-res.status(200).send({message:'Tienes Acceso'})
-})
 
 /////////  PEDIDOS   ///////////////////////
 api.post("/orders",auth,authorization, ordersCtrl.postPedidos)

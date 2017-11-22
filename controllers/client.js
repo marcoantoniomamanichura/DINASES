@@ -8,13 +8,35 @@ const service=require('../Services')
 var nodemailer = require('nodemailer')
 var validator = require('email-validator')
 var generator = require('generate-password')
-function getClient(req, res){
-  
-}
 function isValidEmail(mail) { 
   return  validator.validate(mail)
   }
-function getClients(req, res){
+
+
+
+  function putPassword(req, res){
+    const token =req.headers.tokenauthorization
+    const payload=jwt.decode(token,config.SECRET_TOKEN)
+    const cod_cliente=payload.sub
+    req.check('password_cli', '{"code":"7","message":"La contraseña no puede ser vacio. Por favor inserte una valida"}').notEmpty();
+var erros = req.validationErrors();
+var result=""
+if(erros){
+  for (var i = 0; i < erros.length; i++) {    
+      result=result+erros[i].msg+","
+     result= result.substring(0, result.length - 1); 
+      res.status(200).send(JSON.parse(result));
+      return
+  }; }
+
+  let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 15}, /*1 Opción de registro de cliente*/
+  {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor":cod_cliente},
+  {"nombre":"password_cli", "tipo": accessDataModel.sqlapi.NVarChar(255), "valor": req.body.password_cli}]
+                  
+ accessDataModel.EjecutaProcedimiento(res, array,0,14,"La contraseña ha sido modicado correctamente","La Contraseña no pudieron ser modificados")
+
+
+ 
 
 }
 
@@ -39,11 +61,24 @@ if(erros){
       res.status(200).send(JSON.parse(result));
       return
   }; }
-  let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 10},
-  {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor": cod_cliente}]
+
+  let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 14}, /*1 Opción de registro de cliente*/
+  {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor":cod_cliente},
+  {"nombre":"full_name", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.full_name},
+  {"nombre":"business_name", "tipo": accessDataModel.sqlapi.NVarChar(200), "valor": req.body.business_name},
+  {"nombre":"nit", "tipo": accessDataModel.sqlapi.NVarChar(20), "valor": req.body.nit},
+  {"nombre":"phone", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.phone},
+  {"nombre":"cell_phone", "tipo": accessDataModel.sqlapi.NVarChar(50), "valor": req.body.cell_phone},
+  {"nombre":"address", "tipo": accessDataModel.sqlapi.NVarChar(200), "valor": req.body.address},
+  {"nombre":"reference", "tipo": accessDataModel.sqlapi.NVarChar(200), "valor": req.body.reference},
+  {"nombre":"location_lat", "tipo": accessDataModel.sqlapi.Decimal(18,14), "valor": req.body.location_lat},
+  {"nombre":"location_log", "tipo": accessDataModel.sqlapi.Decimal(18,14), "valor": req.body.location_log}]
                   
- accessDataModel.executeStoredProcedureProductos(res, array,
-   'sp_go_TC004_appMovil', [{operation_api: 'GET /api/orders'}, {result_api: null}], 1)
+ accessDataModel.EjecutaProcedimiento(res, array,0,14,"Los datos han sido modicado correctamente","Los datos no pudieron ser modificados")
+
+
+ 
+
 }
 
 
@@ -145,11 +180,8 @@ function postClientAuth(req, res) {
 
 
 module.exports = {
-    getClient,
-    getClients,
-    postClient,
-  
+       postClient,putClient,
     deleteClient,
     putRecoverPassword,
-    postClientAuth,putClient
+    postClientAuth,putPassword
 }

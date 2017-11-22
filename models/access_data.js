@@ -34,8 +34,11 @@ function EjecutaProcedimiento(res,array,_codeExitoso,_codeError,_mensajeValida,_
       array.forEach(function(element) {
           request.input(element.nombre, element.tipo, element.valor)    
     }, this);
+ 
     request.execute('sp_go_TC004_appMovil', function(err, result){
         if (err) {
+
+            console.log(err)
             res.status(200).send({code:3,message:'La conexión ha sido interrumpida'})
         } else {
             // console.log(result.recordsets[0].length) // count of rows contained in first recordset 
