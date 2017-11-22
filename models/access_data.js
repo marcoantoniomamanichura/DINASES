@@ -169,7 +169,7 @@ function executeStoredProcedurePedidosPost(res, array, spName, resultName, numbe
         
            }else{ 
          
-                res.status(200).send(result.recordset)
+            res.status(200).send({code:4,message:'Error no pudo insertarse el pedido Error de tipo de datos'})
                  
             }
         }
