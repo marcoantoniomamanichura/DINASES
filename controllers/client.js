@@ -1,5 +1,5 @@
 'use strict'
-
+const jwt=require('jwt-simple')
 const accessDataModel = require('../models/access_data')
 const my_basic_auth = require('basic-auth')
 const my_mail = require('./mail')
