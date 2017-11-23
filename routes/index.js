@@ -7,7 +7,7 @@ const ordersCtrl =require('../controllers/orders')
 const api = express.Router()
 const auth=require('../middlewares/auth')
 const authorization=require('../middlewares/authorization')
-
+api.get('/clients',auth,authorization, clientCtrl.getClients)
 api.post('/clients',authorization, clientCtrl.postClient)
 api.put('/clients',auth,authorization, clientCtrl.putClient)
 api.delete('/delete-client/:code_id', clientCtrl.deleteClient)

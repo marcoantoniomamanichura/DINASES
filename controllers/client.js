@@ -13,7 +13,22 @@ function isValidEmail(mail) {
   }
 
 
+  function getClients(req, res){
+    //console.log('GET /api/categoria-producto')
+    //console.log(req.body)
+    const token =req.headers.tokenauthorization
+    const payload=jwt.decode(token,config.SECRET_TOKEN)
+    const cod_cliente=payload.sub
 
+   
+    //console.log(detalle)
+    let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 3},
+    {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor": cod_cliente}]
+                    
+   accessDataModel.executeStoredProcedureProductos(res, array,
+     'sp_go_TC004_appMovil', [{operation_api: 'GET /api/orders'}, {result_api: null}], 1)
+
+}
   function putPassword(req, res){
     const token =req.headers.tokenauthorization
     const payload=jwt.decode(token,config.SECRET_TOKEN)
@@ -184,5 +199,5 @@ module.exports = {
        postClient,putClient,
     deleteClient,
     putRecoverPassword,
-    postClientAuth,putPassword
+    postClientAuth,putPassword,getClients
 }
