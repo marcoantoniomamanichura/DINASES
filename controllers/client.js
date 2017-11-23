@@ -34,7 +34,7 @@ if(erros){
   {"nombre":"old_password_cli", "tipo": accessDataModel.sqlapi.NVarChar(255), "valor": req.body.old_password_cli},
   {"nombre":"new_password_cli", "tipo": accessDataModel.sqlapi.NVarChar(255), "valor": req.body.new_password_cli}]
                   
- accessDataModel.EjecutaProcedimiento(res, array,0,14,"La contraseña ha sido modicado correctamente","La Contraseña no pudieron ser modificados")
+ accessDataModel.EjecutaProcedimiento(res, array,0,15,"La contraseña ha sido modicado correctamente","La contraseña es incorrecta. Por favor inserte su contraseña actual más su contraseña nueva")
 
 
  
@@ -75,7 +75,7 @@ if(erros){
   {"nombre":"location_lat", "tipo": accessDataModel.sqlapi.Decimal(18,14), "valor": req.body.location_lat},
   {"nombre":"location_log", "tipo": accessDataModel.sqlapi.Decimal(18,14), "valor": req.body.location_log}]
                   
- accessDataModel.EjecutaProcedimiento(res, array,0,14,"Los datos han sido modicado correctamente","Los datos no pudieron ser modificados")
+ accessDataModel.EjecutaProcedimiento(res, array,0,14,"Los datos han sido modicado correctamente","Los datos del cliente no pudieron ser modificados")
 
 
  
