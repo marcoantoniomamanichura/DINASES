@@ -20,7 +20,7 @@ api.put('/password/clients',auth,authorization, clientCtrl.putPassword)
 api.post("/orders",auth,authorization, ordersCtrl.postPedidos)
 api.get("/orders",auth,authorization, ordersCtrl.getPedidos)
 api.get('/orders/:ordersID/products',auth,authorization,ordersCtrl.getPedidosProducts)
-api.put('/orders/:ordersID',auth,authorization, ordersCtrl.putPedidos)
+api.delete('/orders/:ordersID/cancels',auth,authorization, ordersCtrl.deletePedidos)
 /////////  PRODUCTOS  ////////
 api.get('/products/category',authorization,productCtrl.getCategorias)
 api.get('/products/category/:categoryId',authorization,productCtrl.getProducts)

@@ -18,7 +18,7 @@ function isValidEmail(mail) {
     const token =req.headers.tokenauthorization
     const payload=jwt.decode(token,config.SECRET_TOKEN)
     const cod_cliente=payload.sub
-    req.check('password_cli', '{"code":"7","message":"La contraseña no puede ser vacio. Por favor inserte una valida"}').notEmpty();
+    req.check('old_password_cli', '{"code":"7","message":"La contraseña no puede ser vacio. Por favor inserte una valida"}').notEmpty();
 var erros = req.validationErrors();
 var result=""
 if(erros){
@@ -31,7 +31,8 @@ if(erros){
 
   let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 15}, /*1 Opción de registro de cliente*/
   {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor":cod_cliente},
-  {"nombre":"password_cli", "tipo": accessDataModel.sqlapi.NVarChar(255), "valor": req.body.password_cli}]
+  {"nombre":"old_password_cli", "tipo": accessDataModel.sqlapi.NVarChar(255), "valor": req.body.old_password_cli},
+  {"nombre":"new_password_cli", "tipo": accessDataModel.sqlapi.NVarChar(255), "valor": req.body.new_password_cli}]
                   
  accessDataModel.EjecutaProcedimiento(res, array,0,14,"La contraseña ha sido modicado correctamente","La Contraseña no pudieron ser modificados")
 

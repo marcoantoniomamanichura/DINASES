@@ -36,7 +36,7 @@ function postPedidos(req, res){
      'sp_go_TC004_appMovil', [{operation_api: 'POST /api/orders'}, {result_api: null}], 1)
 
 }
-function putPedidos(req, res){
+function deletePedidos(req, res){
       const token =req.headers.tokenauthorization
     const payload=jwt.decode(token,config.SECRET_TOKEN)
     const cod_cliente=payload.sub
@@ -83,5 +83,5 @@ module.exports = {
     postPedidos,
     getPedidos,
     getPedidosProducts,
-    putPedidos
+    deletePedidos
 }
