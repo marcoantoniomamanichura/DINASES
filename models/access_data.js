@@ -166,6 +166,8 @@ function executeStoredProcedureCliente(res, array, spName, resultName, numberRow
             console.log(`Error mientras consultaba el SP de la base de datos : ${err}`)
             res.status(500).send({code:3,message: 'La conexión ha sido interrumpida'})
         } else {
+
+            try{
        if(result.recordsets[0].length==1){
         res.status(200).send(result.recordset[0])
            }else{ 
@@ -173,6 +175,9 @@ function executeStoredProcedureCliente(res, array, spName, resultName, numberRow
                 res.status(200).send(result.recordset[0])
                  
             }
+        }catch(e){
+            res.status(200).send({code:16,message:'No se puede obtener datos del cliente. Codigo invalido'})
+        }
         }
     })
 }
@@ -211,5 +216,5 @@ module.exports = {
     VerificarCuenta,
     ExisteEMail,
     executeStoredProcedureProductos,executeStoredProcedurePedidosPost,
-    EjecutaProcedimiento
+    EjecutaProcedimiento,executeStoredProcedureCliente
 }
