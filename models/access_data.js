@@ -152,7 +152,30 @@ function executeStoredProcedureProductos(res, array, spName, resultName, numberR
         }
     })
 }
+function executeStoredProcedureCliente(res, array, spName, resultName, numberRows) {
+    var request = new sqlapi.Request()
+    //console.dir(array)
+    
+    array.forEach(function(element) {
+       // console.dir(element.nombre + " : " + element.tipo + " : " + element.valor)
+        request.input(element.nombre, element.tipo, element.valor)    
+    }, this);
 
+    request.execute(spName, function(err, result){
+        if (err) {
+            console.log(`Error mientras consultaba el SP de la base de datos : ${err}`)
+            res.status(500).send({code:3,message: 'La conexión ha sido interrumpida'})
+        } else {
+       if(result.recordsets[0].length==1){
+        res.status(200).send(result.recordset[0])
+           }else{ 
+         
+                res.status(200).send(result.recordset[0])
+                 
+            }
+        }
+    })
+}
 
 function executeStoredProcedurePedidosPost(res, array, spName, resultName, numberRows) {
     var request = new sqlapi.Request()

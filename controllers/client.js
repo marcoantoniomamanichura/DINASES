@@ -25,7 +25,7 @@ function isValidEmail(mail) {
     let array = [{"nombre":"tipo", "tipo": accessDataModel.sqlapi.Int, "valor": 3},
     {"nombre":"code_id", "tipo": accessDataModel.sqlapi.Int, "valor": cod_cliente}]
                     
-   accessDataModel.executeStoredProcedureProductos(res, array,
+   accessDataModel.executeStoredProcedureCliente(res, array,
      'sp_go_TC004_appMovil', [{operation_api: 'GET /api/orders'}, {result_api: null}], 1)
 
 }
