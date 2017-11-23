@@ -43,14 +43,20 @@ function EjecutaProcedimiento(res,array,_codeExitoso,_codeError,_mensajeValida,_
         } else {
             // console.log(result.recordsets[0].length) // count of rows contained in first recordset 
           // console.log(result.recordset[0]["code_id"]) // first recordset from result.recordsets 
-          if(result.recordsets[0].length==1){
-             
-            res.status(200).send({code:_codeExitoso,message:_mensajeValida})
-          }else{
-         
-           res.status(200).send({code:_codeError,message:_mesajeInvalido})
-         
-           }
+
+          try{
+            if(result.recordsets[0].length==1){
+                
+               res.status(200).send({code:_codeExitoso,message:_mensajeValida})
+             }else{
+            
+              res.status(200).send({code:_codeError,message:_mesajeInvalido})
+            
+              }
+          }catch(e){
+            res.status(200).send({code:_codeError,message:_mesajeInvalido})
+          }
+          
         }
     }) 
 }
