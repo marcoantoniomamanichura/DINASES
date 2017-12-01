@@ -199,9 +199,9 @@ function executeStoredProcedurePedidosPost(res, array, spName, resultName, numbe
        if(result.recordsets[0].length==1){
        
        mail. send_mailPedido(res,result.recordset[0]["ccemail"],result.recordset[0]["ccdesc"],result.recordset[0]["oanumi"])
-    
+     //  res.status(200).send({code:0,code_orders:result.recordset[0]["oanumi"]})
         
-           }else{ 
+           }else{                                                                                                                                       
          
             res.status(200).send({code:4,message:'Error no pudo insertarse el pedido Error de tipo de datos'})
                  
