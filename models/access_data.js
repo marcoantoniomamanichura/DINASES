@@ -90,6 +90,8 @@ function ExisteEMail(res,pass,email,array){
    
 }
 
+
+
 function executeStoredProcedure(res, array, spName, resultName, numberRows,mail) {
     var request = new sqlapi.Request()
     //console.dir(array)
@@ -114,7 +116,9 @@ function executeStoredProcedure(res, array, spName, resultName, numberRows,mail)
                resultName[1].result_api=result.recordset
          
                //res.status(200).send(resultName)
+               mail.send_mailPedido(res,result.recordset[0]["mail"],result.recordset[0]["full_name"],0)
                res.status(200).send({code:0,message:'Usuario creado exitosamente',token:service.createToken(result.recordset[0]["code_id"])})
+               
            }else{
    
                 resultName[1].result_api=result.recordset[numberRows-1]
@@ -199,9 +203,9 @@ function executeStoredProcedurePedidosPost(res, array, spName, resultName, numbe
        if(result.recordsets[0].length==1){
        
        mail. send_mailPedido(res,result.recordset[0]["ccemail"],result.recordset[0]["ccdesc"],result.recordset[0]["oanumi"])
-     //  res.status(200).send({code:0,code_orders:result.recordset[0]["oanumi"]})
+    
         
-           }else{                                                                                                                                       
+           }else{ 
          
             res.status(200).send({code:4,message:'Error no pudo insertarse el pedido Error de tipo de datos'})
                  
