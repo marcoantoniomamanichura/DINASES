@@ -36,7 +36,7 @@ transporter.sendMail(mailOptions, function(error, info){
 
 
 function send_mailPedido( res, destination_mail, name,cod_pedido){
-    
+    console.log("transporte")
       var transporter = nodemailer.createTransport({
           service: 'Gmail',
           auth: {
@@ -44,6 +44,7 @@ function send_mailPedido( res, destination_mail, name,cod_pedido){
             pass: '*123456789'
         }
     });
+    console.log("sendemail")
     // setup e-mail data with unicode symbols
 var mailOptions = {
     from: '<BiopetrolAguasok@gmail.com>', // sender address
